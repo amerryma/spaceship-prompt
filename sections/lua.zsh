@@ -23,7 +23,7 @@ spaceship_lua() {
   local is_lua_project="$(spaceship::upsearch .lua-version lua)"
   [[ -n "$is_lua_project" || -n *.lua(#qN^/) ]] || return
 
-  local lua_version=$(lua -v | awk '{print $2}')
+  local lua_version=$(lua -v 2>&1 | awk '/Lua/{print $2}')
 
   spaceship::section \
     --color "$SPACESHIP_LUA_COLOR" \
