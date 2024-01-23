@@ -10,7 +10,7 @@
 
 SPACESHIP_SUPABASE_SHOW="${SPACESHIP_SUPABASE_SHOW=true}"
 SPACESHIP_SUPABASE_ASYNC="${SPACESHIP_SUPABASE_ASYNC=true}"
-SPACESHIP_SUPABASE_PREFIX="${SPACESHIP_SUPABASE_PREFIX="$SPACESHIP_PROMPT_DEFAULT_PREFIX"}"
+SPACESHIP_SUPABASE_PREFIX="${SPACESHIP_SUPABASE_PREFIX="linked to "}"
 SPACESHIP_SUPABASE_SUFFIX="${SPACESHIP_SUPABASE_SUFFIX="$SPACESHIP_PROMPT_DEFAULT_SUFFIX"}"
 SPACESHIP_SUPABASE_SYMBOL="${SPACESHIP_SUPABASE_SYMBOL="󱐋 "}"
 SPACESHIP_SUPABASE_COLOR="${SPACESHIP_SUPABASE_COLOR="#85E0B7"}"
@@ -44,9 +44,7 @@ spaceship_supabase() {
   # Check if tool version is correct
   [[ $supabase_version == "system" ]] && return
 
-  local supabase_project_ref="$(cat supabase/.temp/project-ref)"
-
-  local supabase_project_name="$(supabase projects list | grep "$supabase_project_ref" | sed 's/│/,/g' | cut -d "," -f 3 | xargs)"
+  local supabase_project_name="$(supabase projects list | awk -F '│' '$1 ~ /●/ { gsub(/^ +| +$/, "", $4); print $4 }')"
 
   # Display supabase section
   # spaceship::section utility composes sections. Flags are optional
