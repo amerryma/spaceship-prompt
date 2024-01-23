@@ -28,7 +28,7 @@ spaceship_pulumi() {
   spaceship::exists pulumi || return
 
   # Show PULUMI Stack when exists
-  local pulumi_project=$(spaceship::upsearch Pulumi.y*ml)
+  local pulumi_project=$(spaceship::upsearch Pulumi.yaml Pulumi.yml)
   [[ -n "$pulumi_project" || -d .pulumi/stacks ]] || return
 
   local pulumi_stack=$(pulumi stack ls 2>/dev/null | sed -n -e '/\x2A/p' | cut -f1 -d" " | sed s/\*//)
