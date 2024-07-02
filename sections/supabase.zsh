@@ -19,35 +19,42 @@ SPACESHIP_SUPABASE_COLOR="${SPACESHIP_SUPABASE_COLOR="#85E0B7"}"
 # Section
 # ------------------------------------------------------------------------------
 
-# Show supabase status
-# spaceship_ prefix before section's name is required!
-# Otherwise this section won't be loaded.
+# Define the cache file location and the cache duration (in seconds)
+CACHE_FILE="$HOME/.cache/supabase_projects_cache"
+CACHE_DURATION=600  # 10 minutes
+
+# Function to check if the cache is still valid
+is_cache_valid() {
+  if [[ -f "$CACHE_FILE" ]]; then
+    local cache_mtime
+    cache_mtime=$(stat -c %Y "$CACHE_FILE")
+    local current_time
+    current_time=$(date +%s)
+    local age=$((current_time - cache_mtime))
+    [[ $age -lt $CACHE_DURATION ]]
+  else
+    return 1
+  fi
+}
+
+# Function to update the cache
+update_cache() {
+  supabase projects list > "$CACHE_FILE"
+}
+
 spaceship_supabase() {
-  # If SPACESHIP_SUPABASE_SHOW is false, don't show supabase section
   [[ $SPACESHIP_SUPABASE_SHOW == false ]] && return
-
-  # Check if supabase command is available for execution
   spaceship::exists supabase || return
-
-  # Show supabase section only when there are supabase-specific files in current
-  # working directory.
-
-  # spaceship::upsearch utility helps finding files up in the directory tree.
-#  local is_supabase_context="$(spaceship::upsearch supabase.conf)"
-  # Here glob qualifiers are used to check if files with specific extension are
-  # present in directory. Read more about them here:
-  # http://zsh.sourceforge.net/Doc/Release/Expansion.html
   [ ! -f supabase/.temp/project-ref ] && return
 
-  local supabase_version="$(supabase --version)"
+  local supabase_project_name
 
-  # Check if tool version is correct
-  [[ $supabase_version == "system" ]] && return
+  if ! is_cache_valid; then
+    echo "Updating cache"
+    update_cache
+  fi
+  supabase_project_name="$(awk -F '│' '$1 ~ /●/ { gsub(/^ +| +$/, "", $4); print $4 }' "$CACHE_FILE")"
 
-  local supabase_project_name="$(supabase projects list | awk -F '│' '$1 ~ /●/ { gsub(/^ +| +$/, "", $4); print $4 }')"
-
-  # Display supabase section
-  # spaceship::section utility composes sections. Flags are optional
   spaceship::section::v4 \
     --color "$SPACESHIP_SUPABASE_COLOR" \
     --prefix "$SPACESHIP_SUPABASE_PREFIX" \
