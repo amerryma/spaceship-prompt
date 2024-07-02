@@ -1,3 +1,37 @@
+# [4.16.0](https://github.com/spaceship-prompt/spaceship-prompt/compare/v4.15.3...v4.16.0) (2024-06-19)
+
+
+### Bug Fixes
+
+* **kubectl:** version output redirect ([#1437](https://github.com/spaceship-prompt/spaceship-prompt/issues/1437)) ([9373ed2](https://github.com/spaceship-prompt/spaceship-prompt/commit/9373ed2764309cc55dca648d3c4baf2aa5e99dce))
+
+
+### Features
+
+* add git_commit with git commit short hash ([#1438](https://github.com/spaceship-prompt/spaceship-prompt/issues/1438)) ([46edb9f](https://github.com/spaceship-prompt/spaceship-prompt/commit/46edb9f865831be3c0e656fbc654655256f03961)), closes [#741](https://github.com/spaceship-prompt/spaceship-prompt/issues/741) [#741](https://github.com/spaceship-prompt/spaceship-prompt/issues/741)
+* **red:** Add Red Section ([#1439](https://github.com/spaceship-prompt/spaceship-prompt/issues/1439)) ([e567f8a](https://github.com/spaceship-prompt/spaceship-prompt/commit/e567f8ade2d6ee30bd78b84e441b4d151893a598))
+
+## [4.15.3](https://github.com/spaceship-prompt/spaceship-prompt/compare/v4.15.2...v4.15.3) (2024-05-29)
+
+
+### Bug Fixes
+
+* **kubectl:** --short arg in kubectl cmd does not exist in later versions ([#1429](https://github.com/spaceship-prompt/spaceship-prompt/issues/1429)) ([96d2523](https://github.com/spaceship-prompt/spaceship-prompt/commit/96d2523e6657524ba061401529d7f501a09cd65a))
+
+## [4.15.2](https://github.com/spaceship-prompt/spaceship-prompt/compare/v4.15.1...v4.15.2) (2024-05-01)
+
+
+### Bug Fixes
+
+* **docker-compose:** include stopped containers ([#1422](https://github.com/spaceship-prompt/spaceship-prompt/issues/1422)) ([be2f603](https://github.com/spaceship-prompt/spaceship-prompt/commit/be2f6034d712c19db6ab810459c17b371ec6eb35))
+
+## [4.15.1](https://github.com/spaceship-prompt/spaceship-prompt/compare/v4.15.0...v4.15.1) (2024-03-27)
+
+
+### Bug Fixes
+
+* **pulumi:** Improve search for Pulumi.yml and Pulumi.yaml to prevent 'not found' message; Add tests for Pulumi section ([#1417](https://github.com/spaceship-prompt/spaceship-prompt/issues/1417)) ([134d979](https://github.com/spaceship-prompt/spaceship-prompt/commit/134d97984900285db2c2ec0c992f4d82b74d5e17))
+
 # [4.15.0](https://github.com/spaceship-prompt/spaceship-prompt/compare/v4.14.1...v4.15.0) (2023-10-04)
 
 
