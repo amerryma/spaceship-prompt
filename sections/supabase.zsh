@@ -27,7 +27,7 @@ CACHE_DURATION=600  # 10 minutes
 mkdir -p "$CACHE_DIR"
 
 # Safely delete all cache files in the directory
-find "$CACHE_DIR" -type f -name '*_cache' -delete
+find "$CACHE_DIR" -type f -name '*_cache' -delete 2>/dev/null
 
 # Function to get the directory-specific cache file path
 get_cache_file() {
@@ -54,7 +54,7 @@ is_cache_valid() {
 update_cache() {
   local cache_file
   cache_file=$(get_cache_file)
-  supabase projects list | awk -F '│' '$1 ~ /●/ { gsub(/^ +| +$/, "", $4); print $4 }' > "$cache_file"
+  supabase projects list 2>/dev/null | awk -F '│' '$1 ~ /●/ { gsub(/^ +| +$/, "", $4); print $4 }' > "$cache_file"
 }
 
 spaceship_supabase() {
